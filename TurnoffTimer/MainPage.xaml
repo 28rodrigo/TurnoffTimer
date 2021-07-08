@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="TurnoffTimer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TurnoffTimer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="569"
+    Height="320"
+    Background="#FF637485">
+
+
+    <Grid Margin="0,10,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.4*" />
+        </Grid.RowDefinitions>
+        <TextBlock TextAlignment="Center" FontSize="20"  Text="Minutes" TextWrapping="Wrap"  Grid.Column="0" Grid.Row="0" Foreground="White"/>
+        <TextBlock TextAlignment="Center" FontSize="20"  Text="Seconds" TextWrapping="Wrap" Margin="2,0,0,0" Grid.Column="1" Grid.Row="0" Foreground="White"/>
+        <TextBox x:Name="TextBox_minutes" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Width="166" MaxWidth="200" Height="auto" Background="#FFC9CBD1" Foreground="Black" BorderBrush="Black" BorderThickness="2" Text="0" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" FontSize="14"/>
+        <TextBox x:Name="Textbox_Seconds" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Width="166"  MaxWidth="200" Height="auto" Background="#FFC9CBD1" BorderBrush="Black" Foreground="Black" BorderThickness="2" Text="0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="14"/>
+        <TextBlock x:Name="label_minutes" Visibility="Collapsed" TextAlignment="Center" FontSize="20"  Text="00:" TextWrapping="Wrap" HorizontalAlignment="Right"   Grid.Column="0" Grid.Row="3" Foreground="White"/>
+        <TextBlock x:Name="label_seconds" Visibility="Collapsed"  TextAlignment="Center" FontSize="20"  Text="00" TextWrapping="Wrap" HorizontalAlignment="Left"     Grid.Column="1" Grid.Row="3" Foreground="White"/>
+        <RadioButton x:Name="Radio_shutdown" Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" Content="Shutdown" Foreground="White" FocusVisualSecondaryBrush="#99000000" FocusVisualPrimaryBrush="Black" FontSize="16"/>
+        <RadioButton x:Name="Radio_reboot" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Left" Content="Reboot" Margin="25,0,0,0" Foreground="White" FocusVisualPrimaryBrush="Black" FocusVisualSecondaryBrush="#99000000" FontSize="16"/>
+        <Button x:Name="Button_Start" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" Content="Start" FontSize="20*" Width="120" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Foreground="White" Background="#33121017" Click="Button_Start_Click" />
+        <Button x:Name="Button_Abort" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Content="Abort" FontSize="20*" Width="120" IsEnabled="False" Background="#33121017" Click="Button_Abort_Click"/>
+    </Grid>
+
+
+</Page>

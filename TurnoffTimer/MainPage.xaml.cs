@@ -51,6 +51,15 @@ namespace TurnoffTimer
 
         private async void Button_Start_Click(object sender, RoutedEventArgs e)
         {
+            if ((bool)!Radio_reboot.IsChecked && (bool)!Radio_shutdown.IsChecked)
+            {
+                var messageDialog = new MessageDialog("Please select an option!");
+                messageDialog.CancelCommandIndex = 1;
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+                return;
+            }
             var reg = new Regex("^[0-9]+$");
             if(!reg.IsMatch(TextBox_minutes.Text) || !reg.IsMatch(Textbox_Seconds.Text))
             {
@@ -77,31 +86,41 @@ namespace TurnoffTimer
             timer.Start();
         }
 
-        private async void dispatcherTimer_Tick(object sender,object e)
+        private  void dispatcherTimer_Tick(object sender,object e)
         {
+            
             if(minutes==0 && seconds==0)
             {
                 timer.Stop();
-                var messageDialog = new MessageDialog("Goodbye!");
-                messageDialog.CancelCommandIndex = 1;
 
-                // Show the message dialog
-                await messageDialog.ShowAsync();
+                //var messageDialog = new MessageDialog("Goodbye!");
+                //messageDialog.CancelCommandIndex = 1;
+
+                //// Show the message dialog
+                //await messageDialog.ShowAsync();
                 
-                Button_Abort.IsEnabled = false;
-                TextBox_minutes.IsEnabled = true;
-                Textbox_Seconds.IsEnabled = true;
-                Radio_reboot.IsEnabled = true;
-                Radio_shutdown.IsEnabled = true;
-                label_minutes.Visibility = Visibility.Collapsed;
-                label_seconds.Visibility = Visibility.Collapsed;
+                //Button_Abort.IsEnabled = false;
+                //TextBox_minutes.IsEnabled = true;
+                //Textbox_Seconds.IsEnabled = true;
+                //Radio_reboot.IsEnabled = true;
+                //Radio_shutdown.IsEnabled = true;
+                //label_minutes.Visibility = Visibility.Collapsed;
+                //label_seconds.Visibility = Visibility.Collapsed;
+                if((bool)Radio_shutdown.IsChecked)
+                {
+                    this.ProcessStart(1);
+                }
+                else
+                {
+                    this.ProcessStart(0);
+                }
             }
             else
             {
                 if(seconds==0)
                 {
                     minutes--;
-                    seconds = 60;
+                    seconds = 59;
                 }
                 else
                 {
@@ -123,6 +142,25 @@ namespace TurnoffTimer
             label_minutes.Visibility = Visibility.Collapsed;
             label_seconds.Visibility = Visibility.Collapsed;
 
+        }
+
+        private void ProcessStart(int option = 0)
+        {
+            string filename = string.Empty;
+            string arguments = string.Empty;
+
+            if(option==1)
+            {
+                filename = "shutdown.exe";
+                arguments = "-s";
+            }
+            else
+            {
+                filename = "shutdown.exe";
+                arguments = "-r";
+            }
+            ProcessStartInfo startinfo = new ProcessStartInfo(filename, arguments);
+            Process.Start(startinfo);
         }
     }
 }
